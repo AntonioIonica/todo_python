@@ -1,6 +1,5 @@
 from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView, FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -55,15 +54,13 @@ class PendingList(LoginRequiredMixin, ListView):
         # search bar
         search_value = self.request.GET.get('search-area', '')
         if search_value:
-            context['tasks'] = context['tasks'].filter(title__icontains= search_value)
+            # Django method
+            # context['tasks'] = context['tasks'].filter(title__icontains= search_value)
+            
+            context['tasks'] = [task for task in context['tasks'] if search_value.lower() in task.title.lower()]
         context['search_value'] = search_value
 
         return context
-
-class TaskDetail(LoginRequiredMixin, DetailView):
-    model = Task
-    context_object_name = 'task'
-    template_name = 'base/task.html'
 
 
 class CreateTask(LoginRequiredMixin, CreateView):

@@ -1,11 +1,28 @@
-<h1>Register new account</h1>
+{% extends 'base/my_style.html' %}
 
-<form method="POST">
-  {% csrf_token %} {{form.as_p}}
-  <input type="submit" value="Sign up" />
-</form>
+{% block content %}
 
-<div style="{{'display: flex; flex-direction: row; align-items: center;'}}">
-  <p style="{{'margin-right: 1rem'}}">Do you already have an account?</p>
+<div class="top-bar">
+  <h1>Register new account</h1>
+</div>
+
+<div class="card-body">
+  <form method="POST">
+    {% csrf_token %}
+    <label>{{form.username.label}}</label>
+    {{form.username}}
+    <label>{{form.password1.label}}</label>
+    {{form.password1}}
+    <label>{{form.password2.label}}</label>
+    {{form.password2}}
+    <input style="margin-top: 12px;" class="button" type="submit" value="Sign up" />
+  </form>
+  <div style="display: flex; flex-direction: row; align-items: center;">
+  <p style="margin-right: 1rem">Do you already have an account?</p>
   <span><a href="{% url 'login' %}">Login here</a></span>
 </div>
+</div>
+
+
+
+{% endblock content %}

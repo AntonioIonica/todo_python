@@ -1,6 +1,18 @@
-<form method="POST">
-  {% csrf_token %}
-  <p>Are you sure to delete the task {{task}}?</p>
-  <input type="submit" value="Confirm" />
-  <a href="{% url 'tasks' %}"><h2>Back to previous page</h2></a>
-</form>
+{% extends 'base/my_style.html' %}
+
+{% block content %}
+
+<div class="top-bar">
+  <a href="{% url 'tasks' %}">&#x1F860; Back</a>
+</div>
+
+<div class="card-body">
+  <form style="display: flex; justify-content: space-between; align-items: center;" method="POST">
+    {% csrf_token %}
+    <p style="font-size: large; font-weight: 400;">Are you sure to delete the task <span style="font-size: larger; font-weight:800; color: aliceblue;">{{task}}</span>?</p>
+    <input class="button" type="submit" value="Confirm" />
+  </form>
+</div>
+
+
+{% endblock content %}
