@@ -1,3 +1,15 @@
+{% if request.user.is_authenticated %}
+  <p>{{request.user}}</p>
+  <form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+  </form>
+{% else %}
+  <a href="{% url 'login' %}">Login</a>
+{% endif %}
+<hr>
+
+
 <h1>Pending List</h1>
 
 <div>
@@ -8,12 +20,16 @@
   <tr>
     <th>Items</th>
     <th></th>
+    <th></th>
+    <th></th>
   </tr>
 
   {% for task in tasks %}
   <tr>
     <td>{{ task.title }}</td>
     <td><a href="{% url 'task' task.id %}">See details</a></td>
+    <td><a href="{% url 'edit-task' task.id %}">Edit task</a></td>
+    <td><a href="{% url 'delete-task' task.id %}">Delete</a></td>
   </tr>
 
   {% empty %}

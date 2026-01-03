@@ -1,0 +1,6 @@
+<form method="POST">
+  {% csrf_token %}
+  <p>Are you sure to delete the task {{task}}?</p>
+  <input type="submit" value="Confirm" />
+  <a href="{% url 'tasks' %}"><h2>Back to previous page</h2></a>
+</form>

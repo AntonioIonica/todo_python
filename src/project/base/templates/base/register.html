@@ -1,0 +1,11 @@
+<h1>Register new account</h1>
+
+<form method="POST">
+  {% csrf_token %} {{form.as_p}}
+  <input type="submit" value="Sign up" />
+</form>
+
+<div style="{{'display: flex; flex-direction: row; align-items: center;'}}">
+  <p style="{{'margin-right: 1rem'}}">Do you already have an account?</p>
+  <span><a href="{% url 'login' %}">Login here</a></span>
+</div>
