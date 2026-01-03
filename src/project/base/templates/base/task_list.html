@@ -16,6 +16,11 @@
   <h2><a href="{% url 'create-task' %}">Create New Task</a></h2>
 </div>
 
+<form method="GET">
+  <input type="search" name="search-area" value="{{search_value}}">
+  <input type="submit" value="Submit">
+</form>
+
 <table>
   <tr>
     <th>Items</th>

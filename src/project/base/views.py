@@ -30,10 +30,15 @@ class RegisterPage(FormView):
         # Get the values from the form when submitted
         user = form.save()
         if user is not None:
+            # When login creds are valid, login the user with those
             login(self.request, user)
         return super().form_valid(form)
 
     def get(self, *args, **kwargs):
+        '''
+        when already authenticated the user is redirected
+        '''
+
         if self.request.user.is_authenticated:
             return redirect('tasks')
         return super().get(*args, **kwargs)
@@ -46,9 +51,14 @@ class PendingList(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['tasks'] = context['tasks'].filter(user= self.request.user)
         context['count'] = context['tasks'].filter(complete= False).count()
+        
+        # search bar
+        search_value = self.request.GET.get('search-area', '')
+        if search_value:
+            context['tasks'] = context['tasks'].filter(title__icontains= search_value)
+        context['search_value'] = search_value
 
         return context
-
 
 class TaskDetail(LoginRequiredMixin, DetailView):
     model = Task
